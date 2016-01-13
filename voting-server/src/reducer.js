@@ -1,6 +1,6 @@
-import {setEntries, next, vote} from './core';
+import {setEntries, next, vote, INITIAL_STATE} from './core';
 
-export default function reducer(state, action) {
+export default function reducer(state = INITIAL_STATE, action) {
     // A reducer executes the function described by the action object on
     // the state that is passed in
     switch (action.type) {
