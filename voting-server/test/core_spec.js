@@ -100,45 +100,33 @@ describe('application logic', () => {
     describe('vote', () => {
         it('creates a tally for the voted entry', () => {
             const state =  Map({
-                vote: Map({
-                    pair: List.of('Mr. Nobody', 'First Contact')
-                }),
-                entries: List()
+                pair: List.of('Mr. Nobody', 'First Contact')
             });
             const nextState = vote(state, 'Mr. Nobody');
             expect(nextState).to.equal(Map({
-                vote: Map({
-                    pair: List.of('Mr. Nobody', 'First Contact'),
-                    tally: Map({
-                        'Mr. Nobody' : 1
-                    })
-                }),
-                entries: List()
+                pair: List.of('Mr. Nobody', 'First Contact'),
+                tally: Map({
+                    'Mr. Nobody' : 1
+                })
             }));
         });
         
         it('adds to existing tally for the voted entry', () => {
             const state = Map({
-                vote: Map({
-                    pair: List.of('Mr. Nobody', 'First Contact'),
-                    tally: Map({
-                        'Mr. Nobody': 3,
-                        'First Contact': 2
-                    })
-                }),
-                entries: List()
+                pair: List.of('Mr. Nobody', 'First Contact'),
+                tally: Map({
+                    'Mr. Nobody': 3,
+                    'First Contact': 2
+                })
             });
             const nextState = vote(state, 'Mr. Nobody');
             expect(nextState).to.equal(fromJS(
                 {
-                        vote: {
-                            pair: ['Mr. Nobody', 'First Contact'],
-                            tally: {
-                                'Mr. Nobody': 4,
-                                'First Contact': 2
-                            }
-                        },
-                        entries: []
+                    pair: ['Mr. Nobody', 'First Contact'],
+                    tally: {
+                        'Mr. Nobody': 4,
+                        'First Contact': 2
+                    }
                 }));
         });
     });

@@ -43,7 +43,7 @@ export function next(state) {
     }
 }
 
-export function vote(state, entry) {
+export function vote(voteState, entry) {
     // Pretty accessor syntax for updating a value inside a nested dictionary
-    return state.updateIn(['vote', 'tally', entry], 0, tally => tally + 1);
+    return voteState.updateIn(['tally', entry], 0, tally => tally + 1);
 }
