@@ -37,7 +37,48 @@ describe('application logic', () => {
                 entries: List.of('Flashdance')
             }));
         });
+
+        it('puts winner of current vote back to entries', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Mr. Nobody', 'First Contact'),
+                    tally: Map({
+                        'Mr. Nobody': 4,
+                        'First Contact': 2
+                    })
+                }),
+                entries: List.of('Flashdance', 'Interstellar', 'The Notebook')
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                vote: Map({
+                    pair: List.of('Flashdance', 'Interstellar')
+                }),
+                entries: List.of('The Notebook', 'Mr. Nobody')
+            }));
+        });
+
+        it('puts both movies from tied vote back', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Mr. Nobody', 'First Contact'),
+                    tally: Map({
+                        'Mr. Nobody': 3,
+                        'First Contact': 3
+                    })
+                }),
+                entries: List.of('Flashdance', 'Interstellar', 'The Notebook')
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                vote: Map({
+                    pair: List.of('Flashdance', 'Interstellar')
+                }),
+                entries: List.of('The Notebook', 'Mr. Nobody', 'First Contact')
+            }));
+        });
     });
+
 
     describe('vote', () => {
         it('creates a tally for the voted entry', () => {
