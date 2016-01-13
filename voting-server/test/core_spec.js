@@ -1,7 +1,7 @@
 import {List, Map} from 'immutable';
 import {expect} from 'chai';
 
-import {setEntries, next} from '../src/core';
+import {setEntries, next, vote} from '../src/core';
 
 describe('application logic', () => {
     describe('setEntries', () => {
@@ -58,5 +58,29 @@ describe('application logic', () => {
                 entries: List()
             }));
         });
-
+        
+        it('adds to existing tally for the voted entry', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Mr. Nobody', 'First Contact'),
+                    tally: Map({
+                        'Mr. Nobody': 3,
+                        'First Contact': 2
+                    })
+                }),
+                entries: List()
+            });
+            const nextState = vote(state, 'Mr. Nobody');
+            expect(nextState).to.equal(Map({
+                vote: Map({
+                    pair: List.of('Mr. Nobody', 'First Contact'),
+                    tally: Map({
+                        'Mr. Nobody': 4,
+                        'First Contact': 2
+                    })
+                }),
+                entries: List()
+            }));
+        });
+    });
 });

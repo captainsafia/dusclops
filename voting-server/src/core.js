@@ -11,3 +11,8 @@ export function next(state) {
         entries: entries.skip(2)
     });
 }
+
+export function vote(state, entry) {
+    // Pretty accessor syntax for updating a value inside a nested dictionary
+    return state.updateIn(['vote', 'tally', entry], 0, tally => tally + 1);
+}
