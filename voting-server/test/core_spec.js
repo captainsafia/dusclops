@@ -77,6 +77,23 @@ describe('application logic', () => {
                 entries: List.of('The Notebook', 'Mr. Nobody', 'First Contact')
             }));
         });
+
+        it('marks winners when just one entry is left', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Mr. Nobody', 'First Contact'),
+                    tally: Map({
+                        'Mr. Nobody': 4,
+                        'First Contact': 2
+                    })
+                }),
+                entries: List()
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                winner: 'Mr. Nobody'
+            }));
+        });
     });
 
 
